@@ -14,7 +14,15 @@ const initWallet = async () => {
     try {
         Tezos.setProvider({ rpc: 'https://carthagenet.SmartPy.io' });
         const options = {
-            name: "Taquito & Beacon SDK"
+            name: "Taquito & Beacon SDK",
+            eventHandlers: {
+                OPERATION_REUEST_SUCCESS: {
+                    handler: async (data) => {
+                        console.log("Request successful: ", data);
+                        showToast("Request successful!");
+                    }
+                }
+            }
         };
         const wallet = new BeaconWallet(options);
         const network = {
@@ -39,3 +47,38 @@ const initWallet = async () => {
         console.log("Error: " + error);
     }
 }
+
+window.onload = () => {
+    document.getElementById("update-message").onclick = changeMessage;
+};
+
+const changeMessage = async () => {
+    // Disables confirmation button after first click
+    document.getElementById("update-message").disabled = true;
+
+    // Displays loader
+    document.getElementById("loader").style.display = "block";
+    const message = document.getElementById("new-message").value;
+
+    try {
+        const op = await contractInstance.methods.changeMessage(message).send();
+        await op.confirmation();
+
+    } catch (error) {
+        console.log(error);
+    } finally {
+        document.getElementById("update-message").disabled = false;
+        document.getElementsById("loader").style.display = none;
+    }
+};
+
+const showToast = (msg) => {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    setTimeout(() => {
+        toast.className = "show";
+        setTimeout(() => {
+            toast.className = toast.className.replace("show", "");
+        }, 3000);
+    }, 3000);
+};
