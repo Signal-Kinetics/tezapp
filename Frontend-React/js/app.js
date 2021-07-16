@@ -2,7 +2,7 @@
 
 // check if touch device
 function isTouchDevice() {
-  var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+  var prefixes = ' -webkit- -moz- -o- -ms- '.split(' '); // For responsiveness
 
   var mq = function mq(query) {
     return window.matchMedia(query).matches;
