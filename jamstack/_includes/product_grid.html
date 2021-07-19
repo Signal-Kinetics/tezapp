@@ -1,0 +1,22 @@
+{% assign site = include.site %}
+{% assign product_pages = include.product_pages %}
+{% assign listCssClass = include.cssClass %}
+{% assign category_url = include.category_url %}
+<ul class="product-grid {% assign listCssClass_is_not_empty = listCssClass | is_not_empty %}{% if listCssClass_is_not_empty %}{{ listCssClass }}{% endif %}">
+    {% for product_page in product_pages %}
+        {% assign category_url_is_empty = category_url | is_empty %}
+        {% if category_url_is_empty %}
+            
+            {% include product_grid_item.html product_page=product_page site=site %}
+        {% else %}
+            {% assign category_is_not_empty = product_page.category | is_not_empty %}
+            {% if category_is_not_empty %}
+                {% assign category_page = product_page.category | get_page_by_file_path %}
+                {% if category_url == category_page.url %}
+                    
+                    {% include product_grid_item.html product_page=product_page site=site %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</ul>

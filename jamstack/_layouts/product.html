@@ -1,0 +1,72 @@
+---
+layout: body
+---
+
+    {% assign primary_bg_img_opacity_pct = site.data.config.bg_image_primary_opacity | default: 100 %}
+    {% assign primary_bg_img_opacity = primary_bg_img_opacity_pct | times: 0.01 %}
+    <main class="content">
+        <section class="product content__row content__row--full-width">
+            <div class="product__background-left">
+                {% assign bg_image_primary_is_not_empty = site.data.config.bg_image_primary | is_not_empty %}
+                {% if bg_image_primary_is_not_empty %}
+                <div class="product__background-left-img" style="background-image: url('{{ site.data.config.bg_image_primary | relative_url }}'); opacity: {{ primary_bg_img_opacity }};"></div>
+                {% endif %}
+            </div>
+            {% assign bg_image_secondary_is_not_empty = site.data.config.bg_image_secondary | is_not_empty %}
+            {% if bg_image_secondary_is_not_empty %}
+            <div class="product__background-right" style="background-image: url('{{ site.data.config.bg_image_secondary | relative_url }}')"></div>
+            {% endif %}
+            <div class="product__header">
+                <a href="{{ '/store' | relative_url }}" class="product__back-to-store-link">
+                    <svg width="20" height="10" viewBox="0 0 20 10" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.739 4.309h17.011v1.284h-17.11l3.43 3.396-0.895 0.886-4.924-4.875 4.924-4.875 0.895 0.886-3.331 3.298z"></path>
+                    </svg>
+                    see all products
+                </a>
+            </div>
+            <figure class="product__figure">
+                
+                {% include picture.html image=page.default_original_image alt=page.title cssClass='product__image' %}
+            </figure>
+            <div class="product__details">
+                <h1 class="product__title">
+                    {{ page.title }}
+                </h1>
+
+                {% assign category_is_not_empty = page.category | is_not_empty %}
+                {% if category_is_not_empty %}
+                    {% assign category_page = page.category | get_page_by_file_path %}
+                    <h2 class="product__category">
+                        <a href="{{ category_page.url | relative_url }}"> {{ category_page.title }} </a>
+                    </h2>
+                {% endif %}
+                <div class="product__price">
+                    {{ page.price }}
+                </div>
+
+                <article class="product__description">
+                    {{ page.description }}
+                </article>
+
+                {% include buy_button.html product_page=page %}
+            </div>
+        </section>
+
+        {% assign category_is_not_empty = page.category | is_not_empty %}
+        {% if category_is_not_empty %}
+            <section class="content__row">
+                <h2 class="content__row-title">Related</h2>
+                {% assign product_pages = '/products' | get_pages | sort: 'order' | where_exp: "item", "item.id != page.id" %}
+                {% assign category_page = page.category | get_page_by_file_path %}
+
+                {% include product_grid.html product_pages=product_pages category_url=category_page.url cssClass='store__product-grid' site=site %}
+            </section>
+        {% endif %}
+
+        <a href="{{ '/store' | relative_url }}" class="content__row content__row--full-width content__row--mb-0 product__back-to-store"{% assign bg_image_product_is_not_empty = site.data.config.bg_image_product | is_not_empty %}{% if bg_image_product_is_not_empty %} style="background-image: url('{{ site.data.config.bg_image_product | relative_url }}')"{% endif %}>
+            <svg width="20" height="10" viewBox="0 0 20 10" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.739 4.309h17.011v1.284h-17.11l3.43 3.396-0.895 0.886-4.924-4.875 4.924-4.875 0.895 0.886-3.331 3.298z"></path>
+            </svg>
+            see all products
+        </a>
+    </main>

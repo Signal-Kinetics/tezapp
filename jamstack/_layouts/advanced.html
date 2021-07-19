@@ -1,0 +1,11 @@
+---
+layout: body
+---
+
+<main class="content{% assign page_css_class_is_not_empty = page.page_css_class | is_not_empty %}{% if page_css_class_is_not_empty %} {{ page.page_css_class }}{% endif %}">
+    {% for section in page.sections %}
+    
+    {% assign component = section.type | append: ".html" %}
+    {% include {{ component }} section=section page=page site=site %}
+    {% endfor %}
+</main>

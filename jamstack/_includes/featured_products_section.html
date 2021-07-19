@@ -1,0 +1,16 @@
+{% assign section = include.section %}
+    <section class="content__row"  data-id="{{ section.section_id }}">
+        <h2 class="content__row-title{% assign light_title_is_not_empty = section.light_title | is_not_empty %}{% if light_title_is_not_empty %} content__row-title--light{% endif %}">
+            {% assign icon_is_not_empty = section.icon | is_not_empty %}
+            {% if icon_is_not_empty %}
+            <svg width="29" height="25" viewBox="0 0 29 25" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28.152 3.419c-0.939-1.661-6.827-7.221-13.652 0.829-7.168-8.051-12.715-2.49-13.652-0.829-1.707 3.071-0.683 7.719 1.707 9.96l11.947 11.621 11.947-11.621c2.387-2.241 3.411-6.888 1.704-9.96h-0z"></path>
+            </svg>
+            {% endif %}
+            {{ section.title }}
+        </h2>
+
+        {% assign featured_products = section.featured_products %}
+        
+        {% include featured_grid.html products=featured_products site=site %}
+    </section>

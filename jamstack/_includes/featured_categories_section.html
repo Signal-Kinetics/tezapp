@@ -1,0 +1,12 @@
+{% assign section = include.section %}
+
+<section class="content__row" data-id="{{ section.section_id }}">
+    {% assign categories = section.featured_categories %}
+    {% for category in categories %}
+        {% assign category_page = category | get_page_by_file_path %}
+        <h2 class="content__row-title">{{ category_page.title }}</h2>
+        {% assign product_pages = '/products' | get_pages | sort: 'order' %}
+        
+        {% include product_grid.html product_pages=product_pages category_url=category_page.url site=site %}
+    {% endfor %}
+</section>

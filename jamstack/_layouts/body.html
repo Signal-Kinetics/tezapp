@@ -1,0 +1,13 @@
+---
+layout: base
+---
+
+    <div class="site-wrapper">
+        
+        {% include header.html page=page site=site %}
+
+        {{ content }}
+
+        {% include footer.html page=page site=site %}
+    </div>
+    <div style="display: none" id="template-params" data-api-key="{{ site.data.config.snipcart_api_key }}" data-templates-url="{{ 'js/snipcart-templates.vue' | relative_url }}"></div>

@@ -1,0 +1,35 @@
+{
+    "title": "Planty",
+    "palette": "green",
+    "snipcart_api_key": "",
+    "favicon": "images/favicon.png",
+    "logo_light": "images/logo-white.svg",
+    "logo_dark": "images/logo.svg",
+    "hamburger_background_image": "/images/leaf-light-grey.svg",
+    "bg_image_primary": "/images/header.jpg",
+    "bg_image_primary_opacity": 60,
+    "bg_image_secondary": "/images/leaf-light-grey.svg",
+    "bg_image_product": "/images/leaf.svg",
+    "main_menu": [
+        {
+            "type": "action",
+            "title": "Store",
+            "url": "/store",
+            "style": "link"
+        },
+        {
+            "type": "action",
+            "title": "About",
+            "url": "/about",
+            "style": "link"
+        },
+        {
+            "type": "action",
+            "title": "FAQ",
+            "url": "/faq",
+            "style": "link"
+        }
+    ],
+    "footer_text": "Copyright 2021 Planty Inc. All rights reserved.",
+    "domain": "https://la-8618c.netlify.app"
+}

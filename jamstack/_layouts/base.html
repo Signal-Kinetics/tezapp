@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+    <head>    
+
+        <title>{% assign title_is_not_empty = page.seo.title | is_not_empty %}{% if title_is_not_empty %}{{ page.seo.title }}{% else %}{{ page.title | append: ' | ' | append: site.data.config.title }}{% endif %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="{{ page.seo.description | default: '' }}" />
+        {% assign robots_is_not_empty = page.seo.robots | is_not_empty %}
+        {% if robots_is_not_empty %}
+        <meta name="robots" content="{{ page.seo.robots | join: ',' }}">
+        {% endif %}
+        {% for meta in page.seo.extra %}
+          {% assign key_name = meta.keyName | default: 'name' %}
+          {% assign relativeUrl_is_not_empty = meta.relativeUrl | is_not_empty %}
+          {% if relativeUrl_is_not_empty %}
+            {% assign domain_is_not_empty = site.data.config.domain | is_not_empty %}
+            {% if domain_is_not_empty %}
+              {% assign domain = site.data.config.domain | trim: '/' %}
+              {% assign rel_url = meta.value | relative_url %}
+              {% assign full_url = domain | append: rel_url %}
+              <meta {{ key_name }}="{{ meta.name }}" content="{{ full_url }}">
+            {% endif %}
+          {% else %}
+            <meta {{ key_name }}="{{ meta.name }}" content="{{ meta.value }}">
+          {% endif %}
+        {% endfor %}
+        <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.18/default/snipcart.css" />
+        <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+        {% assign favicon_is_not_empty = site.data.config.favicon | is_not_empty %}
+        {% if favicon_is_not_empty %}
+        <link rel="icon" href="{{ site.data.config.favicon | relative_url }}">
+        {% endif %}
+        
+    </head>
+    <body class="{{ page.layout }}-template palette-{{ site.data.config.palette }}">
+        
+        {{ content }}
+        <script src="{{ 'js/lib/modernizr.js' | relative_url }}"></script>
+        <script src="{{ 'js/main.js' | relative_url }}"></script>
+        <script src="{{ 'js/page_load.js' | relative_url }}"></script>
+    </body> 
+</html>

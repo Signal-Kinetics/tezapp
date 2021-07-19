@@ -1,0 +1,10 @@
+{% assign site = include.site %}
+{% assign products = include.products %}
+{% assign listCssClass = include.cssClass %}
+<ul class="product-grid {% assign listCssClass_is_not_empty = listCssClass | is_not_empty %}{% if listCssClass_is_not_empty %}{{ listCssClass }}{% endif %}">
+    {% for product in products %}
+        {% assign product_page = product | get_page_by_file_path %}
+            
+            {% include product_grid_item.html product_page=product_page site=site %}
+    {% endfor %}
+</ul>

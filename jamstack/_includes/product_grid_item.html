@@ -1,0 +1,23 @@
+{% assign product_page = include.product_page %}
+
+<li class="product-grid__item">
+    <figure class="product-grid__item-figure">
+        <a class="product-grid__item-link" href="{{ product_page.url | relative_url }}">
+            
+            {% include picture.html image=product_page.default_thumbnail_image alt=product_page.title cssClass='product-grid__item-image' %}
+        </a>
+        <figcaption>
+            
+            {% include small_buy_button.html product_page=product_page component='product-grid' %}
+        </figcaption>
+    </figure>
+    <div class="product-grid__definition">
+        <a href="{{ product_page.url | relative_url }}"><h3 class="product-grid__title">{{ product_page.title }}</h3></a>
+        {% assign category_is_not_empty = product_page.category | is_not_empty %}
+        {% if category_is_not_empty %}
+            {% assign category_page = product_page.category | get_page_by_file_path %}
+            <span class="product-grid__category"> {{ category_page.title }} </span>
+        {% endif %}
+        <span class="product-grid__price"> ${{ product_page.price }} </span>
+    </div>
+</li>

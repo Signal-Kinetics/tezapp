@@ -1,0 +1,15 @@
+{% assign site = include.site %}
+{% assign page = include.page %}
+<ul class="store__nav-items">
+    {% assign category_pages = '/category' | get_pages | sort: 'order' %}
+    {% for item in category_pages %}
+        {% if page.url == item.url %}
+            {% assign isCurrentPage = true %}{% else %}
+            {% assign isCurrentPage = false %}{% endif %}
+        <li class="store__nav-item">
+            <a href="{{ item.url | relative_url }}" class="store__nav-item-link{% assign isCurrentPage_is_not_empty = isCurrentPage | is_not_empty %}{% if isCurrentPage_is_not_empty %} store__nav-item-link--active{% endif %}">
+                {{ item.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
