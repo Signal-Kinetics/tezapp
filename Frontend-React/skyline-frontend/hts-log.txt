@@ -1,0 +1,12 @@
+HTTrack3.49-2 launched on Thu, 22 Jul 2021 00:09:07 at https://www.skylinefilms.tv/
+(httrack https://www.skylinefilms.tv/ )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+00:09:10	Warning: 	Note: due to https://www.skylinefilms.tv remote robots.txt rules, links beginning with these path will be forbidden: /fonts/, /js/, /vendor/ (see in the options to disable this)
+
+HTTrack Website Copier/3.49-2 mirror complete in 14 seconds : 12 links scanned, 11 files written (675437 bytes overall) [125665 bytes received at 8976 bytes/sec], 675437 bytes transferred using HTTP compression in 11 files, ratio 17%, 6.5 requests per connection
+(No errors, 1 warnings, 0 messages)
